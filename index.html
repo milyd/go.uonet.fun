@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            if (getCookie('meteoURL')) window.location.replace(decodeURI(getCookie('meteoURL')));
+            function setURL() {
+                document.cookie = `meteoURL=${encodeURI(document.getElementById('meteoUrl').value)}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+                window.location.replace(document.getElementById('meteoUrl').value);
+            }
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+}
+        </script>
+    </head>
+    <body>
+        <label for="meteoUrl">Podaj adres swojego meteo:</label><br>
+        <input type="text" id="meteoUrl" name="meteoUrl" ><br>
+        <input type="button" value="Zapisz" onclick="setURL();"/>
+    </body>
+</html>
