@@ -1,22 +1,50 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>go.uonet.fun</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: system-ui;
+                text-align: center;
+            }
+            input {
+                border-radius: 5px;
+                border:none;
+                border: 0.5px solid #2e2e2e;
+                padding: 5px;
+            }
+            input[type=button] {
+                background-color: #2e2e2e;
+                color: white;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2><label for="meteoUrl">Podaj swój symbol:</label></h2>
+        <input type="text" id="symbol" name="symbol" ><br><br>
+        <input type="button" value="Zapisz" onclick="setURL();"/>
+
         <script>
-            if (getCookie('meteoURL')) window.location.replace(decodeURI(getCookie('meteoURL')));
+            if (getCookie('symbol')) window.location="https://dziennik-uczen.vulcan.net.pl/"+getCookie('symbol')+"/LoginEndpoint.aspx";
             function setURL() {
-                document.cookie = `meteoURL=${encodeURI(document.getElementById('meteoUrl').value)}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
-                window.location.replace(document.getElementById('meteoUrl').value);
+                document.cookie = `symbol=${encodeURI(document.getElementById('symbol').value)}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+                window.location="https://dziennik-uczen.vulcan.net.pl/"+getCookie('symbol')+"/LoginEndpoint.aspx"
             }
             function getCookie(name) {
                 const value = `; ${document.cookie}`;
                 const parts = value.split(`; ${name}=`);
                 if (parts.length === 2) return parts.pop().split(';').shift();
 }
+
+            document.getElementById("symbol").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                setURL();
+            }
+            }); 
         </script>
-    </head>
-    <body>
-        <label for="meteoUrl">Podaj adres swojego meteo:</label><br>
-        <input type="text" id="meteoUrl" name="meteoUrl" ><br>
-        <input type="button" value="Zapisz" onclick="setURL();"/>
     </body>
 </html>
